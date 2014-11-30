@@ -13,5 +13,10 @@ class Umak extends CI_Controller {
     {
         $this->load->view('view_nivelesFisicoquimico');
     }
-        
+    
+    public function login()
+    {
+       
+        $this->load->view('login');
+    }
 }
