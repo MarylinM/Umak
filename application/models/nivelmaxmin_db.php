@@ -3,9 +3,9 @@
 class Nivelmaxmin_db extends CI_Model{
 
     function getNivelmaxmin(){
-        $query = $this->db->query("SELECT n.estanque_idestanque as id_estanque,e.nombre as nombre_estanque,e.tipo as tipo_estanque,n.oxigeno_min,n.oxigeno_max,n.temperatura_min,n.temperatura_max,n.ph_min,n.ph_max,n.amoniaco_min,n.amoniaco_max
+        $query = $this->db->query("SELECT n.idestanque as id_estanque,e.nombre as nombre_estanque,e.tipo as tipo_estanque,n.oxigeno_min,n.oxigeno_max,n.temperatura_min,n.temperatura_max,n.ph_min,n.ph_max,n.amoniaco_min,n.amoniaco_max
                                     FROM nivelmaxmin n
-                                    JOIN estanque e on e.idestanque = n.estanque_idestanque");
+                                    JOIN estanque e on e.idestanque = n.idestanque");
         return $query->result();
     }
     function updateNivelmaxmin($data){
@@ -19,7 +19,7 @@ class Nivelmaxmin_db extends CI_Model{
                                   ph_max=".$data['ph_max'].",
                                   amoniaco_min=".$data['amoniaco_min'].",
                                   amoniaco_max=".$data['amoniaco_max']."
-                              WHERE estanque_idestanque=".$data['id_estanque']);
+                              WHERE idestanque=".$data['id_estanque']);
     }
 
 }

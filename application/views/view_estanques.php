@@ -8,6 +8,34 @@
     <title>Niveles Fisicoquimicos</title>
     
 </head>
+
+<script type="text/javascript">
+    function mostrar_modal(){
+
+        $('#myModal').modal({
+                show: true 
+            });
+        
+       $('#myModalLabel').text("Agregar Estanque");
+       document.modal.nombre_estanque.value = "";
+       document.modal.action = "agregar_estanque";
+
+    };
+    $(function(){
+        $(".dropdown-menu li a").click(function(){
+        var selText = $(this).text();
+        document.modal.tipo_estanque.value = selText;
+        $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');  
+        });
+
+    });
+    
+
+    
+    
+    
+</script>
+
 <body>
 
 <div>
@@ -28,6 +56,51 @@
    <?php } ?>
   
 </table>
- 
+ <button type="button" onclick="mostrar_modal();" class="btn btn-default">Agregar Estanque</button>
 </body>
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+          <form action="" method="post" name="modal">
+             <input type="hidden" name="tipo_estanque">
+            <table class="table">
+            <tr>
+              <th>Nombre:</th>
+              <th><input class="form-control"  type = 'text' name='nombre_estanque'></th>
+            </tr>
+            <tr>
+              <td>Tipo:</td>
+              <td><div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">Seleccione Tipo <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                <li><a href="#">Crianza</a></li>
+                <li><a href="#">Engorda</a></li>
+                <li><a href="#">Otro</a></li>                
+            </ul>
+        </div></td>
+            </tr>
+          </table>
+                
+                
+            
+        
+                <br>  
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type='submit' class="btn btn-primary" name="guardar">Agregar</button>
+            </div>
+            </form>
+        
+      </div>
+      
+        
+    </div>
+  </div>
+</div>

@@ -17,7 +17,7 @@
                 show: true 
             });
         
-       $('#myModalLabel').text(nombre)
+       $('#myModalLabel').text(nombre);
        
        document.modal.id_estanque.value = id_estanque;
        document.modal.temperatura_min.value = temperatura_min;

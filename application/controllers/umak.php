@@ -43,6 +43,15 @@ class Umak extends CI_Controller {
         $this->load->view('view_estanques',$data);
         //print_r($data);
     }
+    public function agregar_estanque(){
+        $data_insert = array(
+            'nombre_estanque'=>$this->input->post('nombre_estanque'),
+            'tipo_estanque'=>$this->input->post('tipo_estanque')                      
+        );
+        $this->load->model("estanque_db");
+        $this->estanque_db->insertEstanque($data_insert);        
+        $this->estanques();
+    }
     
     public function login()
     {
