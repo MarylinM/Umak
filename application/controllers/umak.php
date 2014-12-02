@@ -3,6 +3,7 @@
 class Umak extends CI_Controller {
     function __construct(){
         parent::__construct();
+        $this->load->model("estanque_db");
     }
     public function index()
     {
@@ -52,10 +53,41 @@ class Umak extends CI_Controller {
         $this->estanque_db->insertEstanque($data_insert);        
         $this->estanques();
     }
+    public function graficos(){
+        $this->load->model("lectura_db");
+        $data['lecturas'] = $this->lectura_db->getLecturas();
+        $this->load->view('view_graficos',$data);
+    }
+    //funcion usada para listar los estanques en un selectBox en la vista view_graficos
+    public function obtenerEstanques(){
+        
+        $jsonData = $this->estanque_db->getEstanques();
+        echo json_encode($jsonData);
+    }
+    
+    public function obtenerTipomedidas(){
+        $this->load->model("tipomedida_db");
+        $jsonData = $this->tipomedida_db->getTipomedidas();
+        echo json_encode($jsonData);
+    }
+    public function prueba(){
+        $this->load->model("lectura_db");
+        $jsonData = $this->lectura_db->getLecturas();
+        echo json_encode($jsonData);
+    }
+    public function lectura(){
+        $data_get = array(
+            //'nombre_estanque'=>$this->input->post('nombre_estanque'),
+            //'tipo_estanque'=>$this->input->post('tipo_estanque')                      
+        );
+        $this->load->model("lectura_db");
+        $jsonData = $this->lectura_db->getLectura();
+        echo json_encode($jsonData);
+    }
+    
     
     public function login()
-    {
-       
+    {       
         $this->load->view('login');
     }
 }

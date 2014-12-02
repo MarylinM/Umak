@@ -104,9 +104,9 @@
             <input type="hidden" name="id_estanque">
            <table class="table">
             <tr>
-              <th></th>
-              <th>Minimo</th>
-              <th>Maximo</th>
+              <td></td>
+              <td>Minimo</td>
+              <td>Maximo</td>
             </tr>
             <tr>
               <td>Temperatura</td>

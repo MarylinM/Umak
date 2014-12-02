@@ -28,12 +28,7 @@
         $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');  
         });
 
-    });
-    
-
-    
-    
-    
+    }); 
 </script>
 
 <body>
@@ -73,8 +68,8 @@
              <input type="hidden" name="tipo_estanque">
             <table class="table">
             <tr>
-              <th>Nombre:</th>
-              <th><input class="form-control"  type = 'text' name='nombre_estanque'></th>
+              <td>Nombre:</td>
+              <td><input class="form-control"  type = 'text' name='nombre_estanque'></td>
             </tr>
             <tr>
               <td>Tipo:</td>
@@ -87,11 +82,7 @@
         </div></td>
             </tr>
           </table>
-                
-                
-            
-        
-                <br>  
+            <br>  
             <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             <button type='submit' class="btn btn-primary" name="guardar">Agregar</button>
@@ -99,8 +90,6 @@
             </form>
         
       </div>
-      
-        
     </div>
   </div>
 </div>
