@@ -93,7 +93,33 @@ class Umak extends CI_Controller {
     
     
     public function login()
-    {       
-        $this->load->view('login');
+    {              
+        {   
+        $this->load->model("usuario_db"); 
+        $this->load->view('view_login');
+        //$username = $this->input->post('username');
+        $user = $_POST['username'];
+        $pass = $_POST['password'];
+        //$user = $this->input->post('username');
+        //$pass = $this->input->post('password');
+        
+        $resultIngreso = $this->usuario_db->identificacion($user,$pass);
+        
+        //$ejemplo = $this->'ejemplo';
+        
+        switch ($resultIngreso):
+        case 0:
+          $this->rechazo_entrada();
+        break;
+        case 1:
+          header('Location: http://localhost/umak/niveles');
+        break;
+      endswitch; 
     }
+    }
+    public function rechazo_entrada()
+    { 
+        $this->load->view('view_Bienvenida');
+    }
+
 }
