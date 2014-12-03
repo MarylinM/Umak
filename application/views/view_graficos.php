@@ -69,14 +69,22 @@ function getDateHourFromString(fecha) {
 }
 
 function cargarDatos(){
-    $.getJSON("prueba").success(function (d){
+    
+    var fecha_inicio = $("#dateboxInicial").dxDateBox("instance").option().value.yyyymmddss();
+    var fecha_fin = $("#dateboxFinal").dxDateBox("instance").option().value.yyyymmddss();
+    var id_tipomedida = $("#selectBoxMedida").dxSelectBox("instance").option().value.idtipomedida;
+    var id_estanque = $("#selectBoxEstanque").dxSelectBox("instance").option().value.idestanque;
+    var unidad = $("#selectBoxMedida").dxSelectBox("instance").option().value.unidad;
+    var nombre_tipomedida = $("#selectBoxMedida").dxSelectBox("instance").option().value.nombre;
+   
+    $.getJSON("lectura",{id_estanque:id_estanque , id_tipomedida:id_tipomedida , fecha_inicio:fecha_inicio , fecha_fin:fecha_fin}).success(function (d){
         for (i = 0; i < d.length; i++) {
             d[i].fecha = getDateHourFromString(d[i].fecha);
             d[i].cantidad = parseFloat(d[i].cantidad);
             d[i].nivel_min = parseFloat(d[i].nivel_min);
             d[i].nivel_max = parseFloat(d[i].nivel_max);            
         }        
-        dibujarGrafico(d,"Temperatura","°C");
+        dibujarGrafico(d,nombre_tipomedida,unidad);
     });
 };
 function dibujarGrafico(dataSource,tipo_medida,unidad){
@@ -152,9 +160,20 @@ function dibujarGrafico(dataSource,tipo_medida,unidad){
 		selectedRangeChanged: function (e) {
 			var graficoAlturaSitio2B = $("#graficoAlturaSitio2B").dxChart("instance");
 			graficoAlturaSitio2B.zoomArgument(e.startValue, e.endValue);
+                        //graficoAlturaSitio2B.render({ force: true });
 		}
     });
 };
+Date.prototype.yyyymmddss = function () {
+    var yyyy = this.getFullYear().toString();
+    var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
+    var dd = this.getDate().toString();
+    var HH = this.getHours().toString();
+    var min = this.getMinutes().toString();
+    var seg = this.getSeconds().toString();
+    return yyyy + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]); // padding
+};
+
 
 
 </script>
