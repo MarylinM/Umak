@@ -36,12 +36,14 @@
     $(function(){
 
     });
-    
+    $('#tab_graficos').attr("class","");
+    $('#tab_estanques').attr("class","");
+    $('#tab_niveles').attr("class","active");
     
 </script>
 
 <body>
-
+<div class="container"> 
 <div>
 	<h1>Niveles Fisicoquimicos</h1>	
 </div>
@@ -84,7 +86,7 @@
    <?php } ?>
   
 </table>
- 
+</div>
 </body>
 </html>
 

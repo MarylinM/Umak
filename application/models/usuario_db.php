@@ -10,16 +10,22 @@ class Usuario_db extends CI_Model{
     function identificacion($user, $pass) {
     $this->db->where('nombre', $user);
     $this->db->where('clave', $pass);
-    $query = $this->db->get('usuario');
- 
+    $query = $this->db->get('usuario');    
+     
     if ($query->num_rows() == 0) :
       //usuario no existe
-      return 0;
+      return false;
     else :
       //Usuario y contraseÃƒÂ±a correcta
-      return 1;
+      return true;
     endif;
-  }
+    }
+    function privilegio($nombre){
+        $this->db->where('nombre', $nombre);
+        $query = $this->db->get('usuario');
+        $temp_usuario = $query->result();
+        return $temp_usuario[0]->privilegio;
+    }
 
     
 }

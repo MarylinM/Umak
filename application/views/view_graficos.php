@@ -174,13 +174,14 @@ Date.prototype.yyyymmddss = function () {
     return yyyy + '-' + (mm[1] ? mm : "0" + mm[0]) + '-' + (dd[1] ? dd : "0" + dd[0]); // padding
 };
 
+    $('#tab_graficos').attr("class","active");
+    $('#tab_estanques').attr("class","");
+    $('#tab_niveles').attr("class","");
 
 
 </script>
     <body>
-        <?php
-        // put your code here
-        ?>
+        <div class="container"> 
         <h1>Graficos</h1>
         <table>
         <tr>
@@ -204,5 +205,6 @@ Date.prototype.yyyymmddss = function () {
         
         <div id="graficoAlturaSitio2B" style="height:250px; max-width:1000px; margin: 0 auto"></div>
         <div id="rangeSelectorContainer" style="height:120px;max-width:1000px;margin:0px auto"></div>
+        </div>
     </body>
 </html>

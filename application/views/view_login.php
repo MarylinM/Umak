@@ -16,30 +16,27 @@
                 <td> <img src="imagenes/camaron.png" WIDTH=60 HEIGHT=40> </td>              
             </table> 
         </div>
-        <div>
-                <h1>Indentificación</h1>	
-        </div>
-        <br>
+        <div class="well"  style="max-width: 400px; margin: 0 auto 10px;">
+      
+    
+                <h1 align="center">Indentificación</h1>	
         
-        <form action="" method="post"  action="umak.php">   
-            <td></td>
-          <div align="center">
-          <table class="table">           
-            <tr>
-              <td>Usuario</td>
-              <td><input type = 'text' name='username' value=""></td>
-            </tr>
-            <tr>
-              <td>Contraseña</td>
-              <td><input type = 'password' name='password' value=""></td>             
-            </tr>
-          </table> 
-          </div>
-            <div class="modal-footer" >
-                <br>  
-             <button type= "submit" class="btn btn-primary" name="enter">Ingresar</button>
-            </div>
-        </form>
+        <br>        
+      <form action="validar_login" method="post">
+      <div class="form-group">
+        <label>Usuario</label>
+        <input type="text" class="form-control" name="usuario" placeholder="Ingrese su usuario...">
+      </div>
+      <div class="form-group">
+        <label>Clave</label>
+        <input type="password" class="form-control" name="clave" placeholder="Ingrese su clave...">
+      </div>
+        <div align="center">
+             <button type="submit" class="btn btn-default">Iniciar sesion</button>
+        </div>
+       <?= validation_errors('<div id="error">','</div>')?>
+      </form>
+        </div>
         
     </body> 
 </html>

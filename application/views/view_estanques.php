@@ -29,10 +29,15 @@
         });
 
     }); 
+    
+    $('#tab_graficos').attr("class","");
+    $('#tab_estanques').attr("class","active");
+    $('#tab_niveles').attr("class","");
+    
 </script>
 
 <body>
-
+<div class="container"> 
 <div>
 	<h1>Estanques</h1>	
 </div>
@@ -52,6 +57,7 @@
   
 </table>
  <button type="button" onclick="mostrar_modal();" class="btn btn-default">Agregar Estanque</button>
+</div>
 </body>
 </html>
 

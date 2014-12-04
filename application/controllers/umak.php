@@ -8,16 +8,19 @@ class Umak extends CI_Controller {
         $this->load->model("nivelmaxmin_db");
         $this->load->model("estanque_db");
         $this->load->model("tipomedida_db");
+        $this->load->model("usuario_db"); 
     }
     public function index()
     {
-            $this->load->view('welcome_message');
+            //$this->load->view('welcome_message');
+        $this->login();
     }
 
     public function niveles()
     {        
         $this->load->model("nivelmaxmin_db");
-        $data['niveles'] = $this->nivelmaxmin_db->getNivelmaxmin();        
+        $data['niveles'] = $this->nivelmaxmin_db->getNivelmaxmin();  
+        $this->load->view('view_header');
         $this->load->view('view_nivelesFisicoquimico',$data);
         //print_r($data);
     }
@@ -41,7 +44,8 @@ class Umak extends CI_Controller {
     public function estanques()
     {        
         
-        $data['estanques'] = $this->estanque_db->getEstanques();        
+        $data['estanques'] = $this->estanque_db->getEstanques();
+        $this->load->view('view_header');
         $this->load->view('view_estanques',$data);
         //print_r($data);
     }
@@ -57,6 +61,7 @@ class Umak extends CI_Controller {
     public function graficos(){
         
         $data['lecturas'] = $this->lectura_db->getLecturas();
+        $this->load->view('view_header');
         $this->load->view('view_graficos',$data);
     }
     //funcion usada para listar los estanques en un selectBox en la vista view_graficos
@@ -92,30 +97,42 @@ class Umak extends CI_Controller {
     }
     
     
-    public function login()
-    {              
-        {   
-        $this->load->model("usuario_db"); 
+    public function login(){
         $this->load->view('view_login');
-        //$username = $this->input->post('username');
-        $user = $_POST['username'];
-        $pass = $_POST['password'];
-        //$user = $this->input->post('username');
-        //$pass = $this->input->post('password');
-        
-        $resultIngreso = $this->usuario_db->identificacion($user,$pass);
-        
-        //$ejemplo = $this->'ejemplo';
-        
-        switch ($resultIngreso):
-        case 0:
-          $this->rechazo_entrada();
-        break;
-        case 1:
-          header('Location: http://localhost/umak/niveles');
-        break;
-      endswitch; 
     }
+    public function validar_login(){
+        $this->load->library('form_validation');
+        
+        $this->form_validation->set_rules('usuario', 'Usuario', 'required|trim|callback_validar_usuario');
+        $this->form_validation->set_rules('clave', 'Clave', 'required|trim');
+        //si la validacion es correcta se crea la variable de sesion
+        if($this->form_validation->run()){            
+            $data = array(
+                'usuario' => $this->input->post('usuario'),
+                'privilegio' => $this->usuario_db->privilegio($this->input->post('usuario')),
+                'login' => true
+            );
+            $this->session->set_userdata($data);
+            $this->graficos();
+        } else{
+            $this->login();
+        }
+
+    }
+    public function validar_usuario(){
+        $usuario=$this->input->post('usuario');
+        $clave=$this->input->post('clave');
+        //consulta a la bd si los datos usuario y clave son correctos, si lo son devuelve una validacion valida
+        if($this->usuario_db->identificacion($usuario,$clave)){
+            return true;
+        } else {
+            $this->form_validation->set_message('validar_usuario', 'usuario/clave incorrectas.');
+            return false;
+        }
+    }
+    public function logout(){
+        $this->session->sess_destroy();
+        redirect('');
     }
     public function rechazo_entrada()
     { 
