@@ -20,7 +20,8 @@ class Umak extends CI_Controller {
     {        
         $this->load->model("nivelmaxmin_db");
         $data['niveles'] = $this->nivelmaxmin_db->getNivelmaxmin();  
-        $this->load->view('view_header');
+        $usuario['privilegio'] = $this->session->userdata('usuario');
+        $this->load->view('view_header',$usuario);
         $this->load->view('view_nivelesFisicoquimico',$data);
         //print_r($data);
     }
@@ -45,7 +46,8 @@ class Umak extends CI_Controller {
     {        
         
         $data['estanques'] = $this->estanque_db->getEstanques();
-        $this->load->view('view_header');
+        $usuario['privilegio'] = $this->session->userdata('usuario');
+        $this->load->view('view_header',$usuario);
         $this->load->view('view_estanques',$data);
         //print_r($data);
     }
@@ -61,7 +63,8 @@ class Umak extends CI_Controller {
     public function graficos(){
         
         $data['lecturas'] = $this->lectura_db->getLecturas();
-        $this->load->view('view_header');
+        $usuario['privilegio'] = $this->session->userdata('usuario');
+        $this->load->view('view_header',$usuario);
         $this->load->view('view_graficos',$data);
     }
     //funcion usada para listar los estanques en un selectBox en la vista view_graficos
@@ -132,7 +135,7 @@ class Umak extends CI_Controller {
     }
     public function logout(){
         $this->session->sess_destroy();
-        redirect('');
+        $this->index();
     }
     public function rechazo_entrada()
     { 

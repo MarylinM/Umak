@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <script src="bootstrap/js/jquery-1.11.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    
     <title>Niveles Fisicoquimicos</title>
     
 </head>
@@ -49,7 +47,7 @@
   
   
   <?php foreach($estanques as $row) { ?>
-    <tr class="success">            
+    <tr>            
             <td><?php echo $row->nombre ?></td>
             <td><?php echo $row->tipo ?></td>
     </tr>
@@ -79,12 +77,12 @@
             </tr>
             <tr>
               <td>Tipo:</td>
-              <td><div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">Seleccione Tipo <span class="caret"></span></a>
+              <td><div class="btn-group"> <a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown">Seleccione Tipo</a>
                 <ul class="dropdown-menu">
                 <li><a href="#">Crianza</a></li>
                 <li><a href="#">Engorda</a></li>
                 <li><a href="#">Otro</a></li>                
-            </ul>
+                </ul>
         </div></td>
             </tr>
           </table>

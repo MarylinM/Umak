@@ -29,8 +29,8 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a>usuario:</a></li>
-            <li><a href="logout" target="_blank">Cerrar sesion</a></li>
+            <li><a>usuario: <?php echo $privilegio ?></a></li>
+            <li><a href="logout">Cerrar sesion</a></li>
           </ul>
 
         

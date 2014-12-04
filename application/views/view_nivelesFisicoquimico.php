@@ -47,7 +47,7 @@
 <div>
 	<h1>Niveles Fisicoquimicos</h1>	
 </div>
-<table  class="table table-hover">
+<table  class="table">
   <tr>
     <th rowspan="2">Estanques</th>
     <th rowspan="2">Tipo</th>
@@ -69,7 +69,7 @@
   </tr>
   
   <?php foreach($niveles as $row) { ?>
-    <tr class="success">            
+    <tr>            
             <td><?php echo $row->nombre_estanque ?></td>
             <td><?php echo $row->tipo_estanque ?></td>
             <td><?php echo $row->oxigeno_min ?></td>
