@@ -22,7 +22,7 @@ $(function () {
         $("#selectBoxEstanque").dxSelectBox({
             dataSource: selectBoxDataSourceEstanque,
             displayExpr: 'nombre',
-            placeholder: 'Seleccion un estanque..'
+            placeholder: 'Elija un estanque..'
         });
     });
     $.getJSON("obtenerTipomedidas").success(function (data){
@@ -33,13 +33,13 @@ $(function () {
         $("#selectBoxMedida").dxSelectBox({
             dataSource: selectBoxDataSourceTipomedida,
             displayExpr: 'nombre',
-            placeholder: 'Seleccion una medida..'
+            placeholder: 'Elija una medida..'
         });
     });
 
     $("#dateboxInicial").dxDateBox({
-        // Restar 5 días a la fecha actual
-        value: new Date(new Date() - (30 * 24 * 3600 * 1000))
+        // Restar 5 días a la fecha actual (xx * 24 * 3600 * 1000))
+        value: new Date(new Date() - (7 * 24 * 3600 * 1000))
     });
     $("#dateboxFinal").dxDateBox({
         //fecha actual
@@ -87,8 +87,11 @@ function cargarDatos(){
         dibujarGrafico(d,nombre_tipomedida,unidad);
     });
 };
+
+
 function dibujarGrafico(dataSource,tipo_medida,unidad){
-    $("#graficoAlturaSitio2B").dxChart({
+   
+    $("#graficoMonitoreo").dxChart({
 	dataSource: dataSource,
 	commonSeriesSettings: {
             argumentField: 'fecha'            
@@ -158,9 +161,9 @@ function dibujarGrafico(dataSource,tipo_medida,unidad){
 			snapToTicks: false
 		},
 		selectedRangeChanged: function (e) {
-			var graficoAlturaSitio2B = $("#graficoAlturaSitio2B").dxChart("instance");
+			var graficoAlturaSitio2B = $("#graficoMonitoreo").dxChart("instance");
 			graficoAlturaSitio2B.zoomArgument(e.startValue, e.endValue);
-                        //graficoAlturaSitio2B.render({ force: true });
+                        //graficoMonitoreo.render({ force: true });
 		}
     });
 };
@@ -182,29 +185,31 @@ Date.prototype.yyyymmddss = function () {
 </script>
     <body>
         <div class="container"> 
-        <h1>Graficos</h1>
+        <h3>Gráficos de Monitoreo</h3>
         <table>
         <tr>
-          <td>Periodo Del:</td>
-          <td><div id="dateboxInicial"></div></td>
-          <td>Al:</td>
-          <td><div id="dateboxFinal"></div></td>
-        </tr>
-        <tr>
-          <td>Estanque</td>
-          <td><div id="selectBoxEstanque"></div></td>
-          <td>Tipo Medida</td>
-          <td><div id="selectBoxMedida"></div></td>
+          <td width="8%">Periodo Del: </td>
+          <td width="10%"><div id="dateboxInicial"></div></td>
+          <td width="2%"></td>
+          <td width="3%">Al: </td>
+          <td width="10%"><div id="dateboxFinal"></div></td>       
+          <td width="2%"></td>
+          <td width="7%">Estanque: </td>          
+          <td width="17%"><div id="selectBoxEstanque"></div></td>
+          <td width="2%"></td>
+          <td width="8%">Tipo Medida: </td>
+          <td width="17%"><div id="selectBoxMedida"></div></td>
+          <td width="2%"></td>
+          <td><button class="btn btn-default" type="button" onclick="generarGrafico();">Generar Gráfico</button></td>
         </tr>
       </table>
         
-        <button type="button" onclick="generarGrafico();">Generar Grafico</button>
-        
         <br>
         <br>
-        
-        <div id="graficoAlturaSitio2B" style="height:250px; max-width:1000px; margin: 0 auto"></div>
+        <div class="well">
+        <div id="graficoMonitoreo" style="height:250px; max-width:1000px; margin: 0 auto"></div>
         <div id="rangeSelectorContainer" style="height:120px;max-width:1000px;margin:0px auto"></div>
+        </div>
         </div>
     </body>
 </html>

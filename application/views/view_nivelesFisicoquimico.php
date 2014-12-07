@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <script src="bootstrap/js/jquery-1.11.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
     <title>Niveles Fisicoquimicos</title>
 
 </head>
@@ -17,7 +14,7 @@
                 show: true 
             });
         
-       $('#myModalLabel').text(nombre);
+       $('#myModalLabel').text("Modificar "+nombre);
        
        document.modal.id_estanque.value = id_estanque;
        document.modal.temperatura_min.value = temperatura_min;
@@ -45,14 +42,14 @@
 <body>
 <div class="container"> 
 <div>
-	<h1>Niveles Fisicoquimicos</h1>	
+	<h3>Niveles Fisicoquímicos</h3>	
 </div>
 <table  class="table">
   <tr>
     <th rowspan="2">Estanques</th>
     <th rowspan="2">Tipo</th>
-    <th colspan="2">Oxigeno</th>
     <th colspan="2">Temperatura</th>
+    <th colspan="2">Oxigeno</th>    
     <th colspan="2">Ph</th>
     <th colspan="2">Amoniaco</th>
     <th rowspan="2">Modificar</th>
@@ -72,15 +69,15 @@
     <tr>            
             <td><?php echo $row->nombre_estanque ?></td>
             <td><?php echo $row->tipo_estanque ?></td>
-            <td><?php echo $row->oxigeno_min ?></td>
-            <td><?php echo $row->oxigeno_max ?></td>
             <td><?php echo $row->temperatura_min ?></td>
             <td><?php echo $row->temperatura_max ?></td>
+            <td><?php echo $row->oxigeno_min ?></td>
+            <td><?php echo $row->oxigeno_max ?></td>            
             <td><?php echo $row->ph_min ?></td>
             <td><?php echo $row->ph_max ?></td>
             <td><?php echo $row->amoniaco_min ?></td>
             <td><?php echo $row->amoniaco_max ?></td>
-            <td><span type="button" onclick="mostrar_modal('<?php echo $row->nombre_estanque ?>','<?php echo $row->id_estanque ?>',' <?php echo $row->temperatura_min ?>','<?php echo $row->temperatura_max ?>','<?php echo $row->oxigeno_min ?>',' <?php echo $row->oxigeno_max ?>','<?php echo $row->amoniaco_min ?>',' <?php echo $row->amoniaco_max ?>',' <?php echo $row->ph_min ?>',' <?php echo $row->ph_max ?>');" class="btn btn-default">Modificar</span></td>
+            <td align="center"><span type="button" onclick="mostrar_modal('<?php echo $row->nombre_estanque ?>','<?php echo $row->id_estanque ?>',' <?php echo $row->temperatura_min ?>','<?php echo $row->temperatura_max ?>','<?php echo $row->oxigeno_min ?>',' <?php echo $row->oxigeno_max ?>','<?php echo $row->amoniaco_min ?>',' <?php echo $row->amoniaco_max ?>',' <?php echo $row->ph_min ?>',' <?php echo $row->ph_max ?>');" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Modificar</span></td>
 
     </tr>
    <?php } ?>
@@ -99,36 +96,35 @@
         <h4 class="modal-title" id="myModalLabel"></h4>
       </div>
       <div class="modal-body">
-        <div class="modal-body" name='precio_fruta'>
-            
+        <div class="modal-body">            
             
             <form action="" method="post" name="modal">
             <input type="hidden" name="id_estanque">
-           <table class="table">
+           <table style="border-spacing:20px; border-collapse: separate;">
             <tr>
               <td></td>
-              <td>Minimo</td>
-              <td>Maximo</td>
+              <td align="center">Mínimo</td>
+              <td align="center">Máximo</td>
             </tr>
             <tr>
-              <td>Temperatura</td>
-              <td><input type = 'text' name='temperatura_min'></td>
-              <td><input type = 'text' name='temperatura_max'></td>
+              <td>Temperatura: </td>
+              <td><input class="form-control" type = 'text' name='temperatura_min'></td>
+              <td><input class="form-control" type = 'text' name='temperatura_max'></td>
             </tr>
             <tr>
-              <td>Oxigeno</td>
-              <td><input type = 'text' name='oxigeno_min'></td>
-              <td><input type = 'text' name='oxigeno_max'></td>
+              <td>Oxigeno: </td>
+              <td><input class="form-control" type = 'text' name='oxigeno_min'></td>
+              <td><input class="form-control" type = 'text' name='oxigeno_max'></td>
+            </tr>            
+            <tr>
+              <td>Ph: </td>
+              <td><input class="form-control" type = 'text' name='ph_min'></td>
+              <td><input class="form-control" type = 'text' name='ph_max'></td>
             </tr>
             <tr>
-              <td>Ph</td>
-              <td><input type = 'text' name='ph_min'></td>
-              <td><input type = 'text' name='ph_max'></td>
-            </tr>
-            <tr>
-              <td>Amoniaco</td>
-              <td><input type = 'text' name='amoniaco_min'></td>
-              <td><input type = 'text' name='amoniaco_max'></td>
+              <td>Amoniaco: </td>
+              <td><input class="form-control" type = 'text' name='amoniaco_min'></td>
+              <td><input class="form-control" type = 'text' name='amoniaco_max'></td>
             </tr>
           </table>
 
@@ -141,8 +137,6 @@
             
         </div>
       </div>
-      
-        
     </div>
   </div>
 </div>

@@ -12,17 +12,33 @@ class Umak extends CI_Controller {
     }
     public function index()
     {
-            //$this->load->view('welcome_message');
-        $this->login();
+        if($this->session->userdata('login')){
+            $this->graficos();
+        }else{
+            $this->login();
+        }
+        
     }
 
     public function niveles()
-    {        
-        $this->load->model("nivelmaxmin_db");
-        $data['niveles'] = $this->nivelmaxmin_db->getNivelmaxmin();  
-        $usuario['privilegio'] = $this->session->userdata('usuario');
-        $this->load->view('view_header',$usuario);
-        $this->load->view('view_nivelesFisicoquimico',$data);
+    {   //comprueba si esta logeado
+        if($this->session->userdata('login')){
+            $data['niveles'] = $this->nivelmaxmin_db->getNivelmaxmin();  
+            $usuario['privilegio'] = $this->session->userdata('usuario');
+            //comprueba si es administrador o usuario
+            if( strcasecmp( $this->session->userdata('privilegio'), 'administrador' ) == 0){
+                $this->load->view('view_header',$usuario);
+                $this->load->view('view_nivelesFisicoquimico',$data);
+            }  elseif ( strcasecmp( $this->session->userdata('privilegio'), 'usuario' ) == 0) {
+                $this->load->view('view_header',$usuario);
+                $this->load->view('views_usuario/view_nivelesFisicoquimico',$data);
+            }
+        }else{
+            $this->load->view('view_Bienvenida');
+        }
+        
+        
+        
         //print_r($data);
     }
     public function modificar_niveles()
@@ -43,12 +59,22 @@ class Umak extends CI_Controller {
         //print_r($data);
     }
     public function estanques()
-    {        
+    {    //comprueba si esta logeado
+        if($this->session->userdata('login')){
+            $data['estanques'] = $this->estanque_db->getEstanques();
+            $usuario['privilegio'] = $this->session->userdata('usuario');
+            //comprueba si es administrador o usuario
+            if( strcasecmp( $this->session->userdata('privilegio'), 'administrador' ) == 0){
+                $this->load->view('view_header',$usuario);
+                $this->load->view('view_estanques',$data);
+            }  elseif ( strcasecmp( $this->session->userdata('privilegio'), 'usuario' ) == 0) {
+                $this->load->view('view_header',$usuario);
+                $this->load->view('views_usuario/view_estanques',$data);
+            }
+        }else{
+            $this->load->view('view_Bienvenida');
+        }
         
-        $data['estanques'] = $this->estanque_db->getEstanques();
-        $usuario['privilegio'] = $this->session->userdata('usuario');
-        $this->load->view('view_header',$usuario);
-        $this->load->view('view_estanques',$data);
         //print_r($data);
     }
     public function agregar_estanque(){
@@ -61,11 +87,15 @@ class Umak extends CI_Controller {
         $this->estanques();
     }
     public function graficos(){
-        
-        $data['lecturas'] = $this->lectura_db->getLecturas();
-        $usuario['privilegio'] = $this->session->userdata('usuario');
-        $this->load->view('view_header',$usuario);
-        $this->load->view('view_graficos',$data);
+        //comprueba si esta logeado
+        if($this->session->userdata('login')){
+            $data['lecturas'] = $this->lectura_db->getLecturas();
+            $usuario['privilegio'] = $this->session->userdata('usuario');
+            $this->load->view('view_header',$usuario);
+            $this->load->view('view_graficos',$data);
+        }else{
+            $this->load->view('view_Bienvenida');
+        }
     }
     //funcion usada para listar los estanques en un selectBox en la vista view_graficos
     public function obtenerEstanques(){        
@@ -77,29 +107,16 @@ class Umak extends CI_Controller {
         $jsonData = $this->tipomedida_db->getTipomedidas();
         echo json_encode($jsonData);
     }
-    public function prueba(){
-        $jsonData = $this->lectura_db->getLecturas();
-        echo json_encode($jsonData);
-    }
-    public function lectura(){
-        
-        //$nombre_estanque = $this->input->get('nombre_estanque');
-        //$nombre_tipomedida = $this->input->get('nombre_tipomedida');
+
+    public function lectura(){  
         $lectura['id_tipomedida']=$this->input->get('id_tipomedida');
         $lectura['id_estanque']=$this->input->get('id_estanque');
         $lectura['fecha_inicio']=$this->input->get('fecha_inicio');
         $lectura['fecha_fin']=$this->input->get('fecha_fin');
-        //$lectura['id_estanque']=$this->estanque_db->getIdestanque($nombre_estanque);
-        //$lectura['id_tipomedida']=$this->tipomedida_db->getIdtipomedida($nombre_tipomedida);
-        //buscar id medida
-        //buscar id estanque
-        
-        $jsonData = $this->lectura_db->getLectura($lectura);
-        
+        $jsonData = $this->lectura_db->getLectura($lectura);        
         echo json_encode($jsonData);
     }
-    
-    
+        
     public function login(){
         $this->load->view('view_login');
     }
@@ -109,6 +126,7 @@ class Umak extends CI_Controller {
         $this->form_validation->set_rules('usuario', 'Usuario', 'required|trim|callback_validar_usuario');
         $this->form_validation->set_rules('clave', 'Clave', 'required|trim');
         //si la validacion es correcta se crea la variable de sesion
+        //falta editar los mensajes de validacion en caso de error
         if($this->form_validation->run()){            
             $data = array(
                 'usuario' => $this->input->post('usuario'),

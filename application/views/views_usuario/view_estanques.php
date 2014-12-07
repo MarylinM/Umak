@@ -5,27 +5,7 @@
     <title>Estamques</title>    
 </head>
 
-<script type="text/javascript">
-    function mostrar_modal(){
-
-        $('#myModal').modal({
-                show: true 
-            });
-        
-       $('#myModalLabel').text("Agregar Nuevo Estanque");
-       document.modal.nombre_estanque.value = "";
-       document.modal.action = "agregar_estanque";
-
-    };
-    $(function(){
-        $(".dropdown-menu li a").click(function(){
-        var selText = $(this).text();
-        document.modal.tipo_estanque.value = selText;
-        $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');  
-        });
-
-    }); 
-    
+<script type="text/javascript">       
     $('#tab_graficos').attr("class","");
     $('#tab_estanques').attr("class","active");
     $('#tab_niveles').attr("class","");
@@ -36,8 +16,7 @@
     <div>
         <table>
         <tr>
-          <th width="90%"><h3>Estanques</h3></th>
-          <th align="right"><button  type="button" onclick="mostrar_modal();" class="btn btn-default">Agregar Estanque</button></th>
+          <th width="90%"><h3>Estanques</h3></th>          
         </tr>
       </table>
              

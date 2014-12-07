@@ -13,27 +13,27 @@
     <header>
         <table>
             <tr>
-            <th style="max-width: 400px; width: 400px; margin: 0 auto 10px;"> <img src="imagenes/camaron.png" WIDTH=80 HEIGHT=60></th>
-            <th style="max-width: 400px; margin: 0 auto 10px;">
-            <h1>Bienvenido</h1>
-            <h2>Centro de Administración</h2></th>         
-          </tr></table>
+                <td width="40%"> <img src="imagenes/camaron.png" WIDTH=150 HEIGHT=70></td>
+                <td>
+                <h1>Bienvenido</h1>
+                <h2>Centro de Monitoreo</h2>
+                </td>         
+           </tr>
+        </table>
     
         
         <div class="navbar navbar-default">             
         <div id="navo" class="navbar-collapse collapse" >
           <ul class="nav navbar-nav">  
-            <li id="tab_graficos"><a href="graficos">Graficos</a></li>           
+            <li id="tab_graficos"><a href="graficos">Gráficos</a></li>           
             <li id="tab_niveles"> <a href="niveles">Niveles</a></li>
             <li id="tab_estanques"><a href="estanques">Estanques</a></li>            
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a>usuario: <?php echo $privilegio ?></a></li>
-            <li><a href="logout">Cerrar sesion</a></li>
-          </ul>
-
-        
+            <li><a><span class="glyphicon glyphicon-user"></span> Usuario: <?php echo $privilegio ?></a></li>
+            <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesion</a></li>
+          </ul>        
       </div>
     </div>
     </header>
